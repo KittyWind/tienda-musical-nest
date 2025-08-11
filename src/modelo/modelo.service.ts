@@ -13,7 +13,7 @@ export class ModeloService {
   }
 
   findAll() {
-    return `This action returns all modelo`;
+    return this.prisma.modelo.findMany();
   }
 
   findOne(id: number) {
