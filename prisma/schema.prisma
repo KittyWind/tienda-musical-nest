@@ -17,4 +17,7 @@ model Modelo{
   id Int @id @default(autoincrement())
   nombre String @unique
   activo Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
