@@ -28,8 +28,8 @@ export class ModeloController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateModeloDto: UpdateModeloDto) {
-    return this.modeloService.update(+id, updateModeloDto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateModeloDto: UpdateModeloDto) {
+    return this.modeloService.update(id, updateModeloDto);
   }
 
   @Delete(':id')
