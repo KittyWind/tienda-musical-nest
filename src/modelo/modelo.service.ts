@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateModeloDto } from './dto/create-modelo.dto';
 import { UpdateModeloDto } from './dto/update-modelo.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Modelo } from '@prisma/client';
 
 @Injectable()
 export class ModeloService {
@@ -16,8 +17,12 @@ export class ModeloService {
     return this.prisma.modelo.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} modelo`;
+  async findOne(id: number): Promise<Modelo | null> {
+    return this.prisma.modelo.findFirst({
+      where: {
+        id: id
+      }
+    })
   }
 
   update(id: number, updateModeloDto: UpdateModeloDto) {
