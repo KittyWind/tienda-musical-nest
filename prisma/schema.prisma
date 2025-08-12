@@ -16,7 +16,8 @@ datasource db {
 model Modelo{
   id Int @id @default(autoincrement())
   nombre String @unique
-  activo Boolean
+  
+  activo Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

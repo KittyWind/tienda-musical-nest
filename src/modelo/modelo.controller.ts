@@ -33,7 +33,7 @@ export class ModeloController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.modeloService.remove(+id);
+  async remove(@Param('id',ParseIntPipe) id: number) {
+    return this.modeloService.remove(id);
   }
 }

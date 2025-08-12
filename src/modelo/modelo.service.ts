@@ -44,7 +44,24 @@ export class ModeloService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} modelo`;
+  async remove(id: number) {
+    try {
+      return await this.prisma.modelo.update({
+        where: {id: id},
+        data: {
+          activo: false
+        }
+      })
+    } catch (error) {
+      // Comprobamos si el error es el específico de "registro no encontrado" de Prisma.
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025' // 'P2025' es el código de Prisma para "Record to update not found."
+      ) {
+        throw new NotFoundException(`modelo not found`);
+      }
+      // Si es otro tipo de error, lo relanzamos para que lo maneje un filtro de excepción global.
+      throw error;
+    }
   }
 }
